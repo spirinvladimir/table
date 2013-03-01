@@ -44,3 +44,5 @@ var CaptionView= Backbone.View.extend({
 ```
 
 &copy; Spirin Vladimir
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/49cdc5c4241822b0c4d296e3cf913047 "githalytics.com")](http://githalytics.com/spirinvladimir/table)
