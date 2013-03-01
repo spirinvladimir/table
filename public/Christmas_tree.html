@@ -1,0 +1,170 @@
+﻿<html>
+	<head>
+		<script type="text/javascript" src="js/jquery-1.9.0.js"></script>
+	</head>
+	<body>
+		Arbol de Navidad
+		<canvas id="a" width="1333" height="698"></canvas>
+		
+		<script>
+		window.requestAnimFrame = (function () {
+	return window.requestAnimationFrame ||
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.oRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+		function (callback) {
+		window.setTimeout(callback, 1000 / 60);
+		};
+	})();
+	
+	var h = {
+			x: 123,
+			y: 88
+	};
+	
+		var canvas_a = document.getElementById('a');
+		var context_a = canvas_a.getContext("2d");
+
+function getCursorPosition(e) {
+	"use strict";
+    var x, y;
+
+    if (e.pageX || e.pageY) {
+        x = e.pageX;
+        y = e.pageY;
+    } else {
+        x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+        y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+    }
+    x -= canvas_a.offsetLeft;
+    y -= canvas_a.offsetTop;
+    return {x: x, y: y};
+}
+
+function mm(e) {
+	var p = getCursorPosition(e);
+	h.x = p.x;
+	h.y = p.y;
+}
+
+function mu(e) {
+	var timer_mouse_up = new Date();
+}
+
+function md(e) {
+    var p = getCursorPosition(e);
+}
+	canvas_a.addEventListener("mousemove", mm, false);
+	canvas_a.addEventListener("mouseup", mu, false);
+	canvas_a.addEventListener("mousedown", md, false);
+	//canvas_a.addEventListener("mouseout", mou, false);
+		
+	function triangle(side, al, peak) {
+		
+		
+		context_a.beginPath();
+		context_a.rect(peak.x - side/2, peak.y, side, side/2);
+		
+		//green
+		var grd = context_a.createLinearGradient(canvas_a.width/2, 0, side, side/2);
+		grd.addColorStop(0, 'rgba(50,170,100,1)');   
+		grd.addColorStop(1, 'green');
+		context_a.fillStyle = grd;
+		context_a.fill();
+		context_a.closePath();
+		
+		//white
+		context_a.beginPath();
+		context_a.save();
+			var side1 = side / Math.sqrt(2);
+				context_a.translate(peak.x, peak.y);
+				context_a.rotate(-1 * Math.PI / 4);
+				
+				context_a.rect(0, 0, side1, side1);
+				
+				context_a.fillStyle = "white";
+				context_a.fill();
+		
+		context_a.restore();
+				context_a.closePath();
+				
+						context_a.beginPath();
+		context_a.save();
+			var side1 = side / Math.sqrt(2);
+				context_a.translate(peak.x, peak.y);
+				context_a.rotate(-1 *5*Math.PI/4);
+				
+				context_a.rect(0, 0, side1, side1);
+				
+				context_a.fillStyle = "white";
+				context_a.fill();
+		
+		context_a.restore();
+				context_a.closePath(); 
+	}
+	
+	var nL = 0;
+	
+	var image1 = new Image();
+	image1.onload = function () {nL++};
+	image1.src = "img/toy1.png" ; 
+
+	var image2 = new Image();
+	image2.onload = function () {nL++};
+	image2.src = "img/toy2.png" ; 
+	
+	var image3 = new Image();
+	image3.onload = function () {nL++};
+	image3.src = "img/toy3.png" ;
+		
+	(function animloop() {
+		requestAnimFrame(animloop);
+		var side;// = canvas_a.width / 8 ;
+		context_a.clearRect(0, 0, canvas_a.width, canvas_a.height);
+		context_a.beginPath();
+		var a = 2.5 * canvas_a.width / 80;
+		context_a.rect(
+			canvas_a.width/2 - a / 2,
+			1.5*side + a /2,
+			a,
+			a
+		);
+		context_a.fillStyle = "brown";
+		context_a.fill();
+		context_a.closePath();
+		var al=0.05
+		for(side = 2.5 * canvas_a.width / 8; side >0; side-=20) {
+			al+=al/2;
+			triangle(side, al, {x:canvas_a.width/2,y:side});
+		}
+		
+		if(nL === 3) {
+				var m = Math.min(canvas_a.width, canvas_a.height);
+				var x = m / 10 ;
+				var y = ((m / 10) / image1.width) * image1.height;
+			context_a.drawImage(image1, h.x - x/2, h.y - y/2, x, y);
+			
+				m = Math.min(canvas_a.width, canvas_a.height);
+				x = m / 10 ;
+				y = ((m / 10) / image2.width) * image2.height;
+			context_a.drawImage(image2, h.x - x/2, h.y - y/2, x, y);
+			
+				m = Math.min(canvas_a.width, canvas_a.height);
+				x = m / 10 ;
+				y = ((m / 10) / image3.width) * image3.height;
+			context_a.drawImage(image3, h.x - x/2, h.y - y/2, x, y);
+		}
+	})();
+	
+	   //var grd = context_a.createLinearGradient(canvas_a.width/2, 0, side, side/2);
+       //grd.addColorStop(0, 'green');   
+       //grd.addColorStop(1, 'green');
+       //context_a.fillStyle = grd;
+       //context_a.fill();
+		//var canvas_b = document.getElementById('b');
+		//var context_b = canvas_b.getContext("2d");
+		// do stuff here
+		</script>
+	</body>
+</html>

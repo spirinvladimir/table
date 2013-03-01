@@ -1,0 +1,18 @@
+﻿{
+  "name": "frogsballs",
+  "domains": [
+    "frogsballs.eu01.aws.af.cm"
+  ],
+  "author": {
+    "name": "Spirin Vladimir",
+    "email": "spirin.vladimir@gmail.com"
+  },
+  "private": true,
+  "dependencies": {
+    "connect": "*"
+  },
+  "version": "0.0.0-1",
+  "scripts": {
+        "start": "node app.js"
+  }
+}
